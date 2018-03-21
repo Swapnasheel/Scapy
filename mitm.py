@@ -1,5 +1,9 @@
 ## This is a representation of the Man in the middle attack using Scapy
+'''
+Usage: 
+    - python mitm.py <target_ip_address>
 
+'''
 
 import os, sys, time
 from scapy.all import *
