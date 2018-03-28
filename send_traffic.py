@@ -1,3 +1,21 @@
+'''
+Author: Swapnasheel
+Usage:
+    - sudo send_traffic.py 10.0.2.15 "Message..!!"
+    
+Testing:
+    - To test the script, send traffic to localhost and from another terminal, use tcpdump to verify traffic
+    - sudo tcpdump -i eth0 tcp port 12345 -nvvX
+    - 'vv' is Verbose, 'X' is readable
+
+To do:
+    - Can add arguments using argparse library
+    
+Requirements:
+    - Python2.7
+'''
+
+
 #!/usr/bin/env python
 
 import sys
@@ -28,6 +46,7 @@ def Main():
 
 if __name__ == '__main__':
     Main()
+<<<<<<< HEAD
 
 
     
@@ -35,3 +54,5 @@ if __name__ == '__main__':
 
 
 
+=======
+>>>>>>> 590a6ec5ea9d92861adb77d20888db7cb76c3954
