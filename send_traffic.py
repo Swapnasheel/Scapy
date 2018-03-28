@@ -22,7 +22,7 @@ def Main():
     
     pkt = Ether(src=get_if_hwaddr(iface[0]), dst="ff:ff:ff:ff:ff:ff")
     pkt = pkt / IP(dst=addr) / TCP(dport=12345, sport=random.randint(49000, 65535)) / sys.argv[2]        # sys.argv[2] is the payload
-    pkt.show2()
+#    pkt.show2()
     sendp(pkt, iface=iface[0], verbose=False)
 
 
@@ -34,4 +34,4 @@ if __name__ == '__main__':
     
 
 
-#
+
