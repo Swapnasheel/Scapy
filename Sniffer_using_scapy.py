@@ -1,3 +1,11 @@
+'''
+Usage: sudo python2.7 Sniffer.py
+
+This script will sniff packets on the interface user specifies.
+
+'''
+
+
 from scapy.all import *
 import logging
 import subprocess
@@ -12,16 +20,12 @@ class Sniff():
 	self.get_sniff_details()
 	self.sniff()
 
-    def packet_log(pkt):
+    def packet_log(self, pkt):
 
-    	#Creating an external file for packet logging
-	self.file_name = raw_input("* Please give a name to the log file: ")
-        self.sniffer_log = open(file_name, "w")
-
-        if self.protocol.lower() in pkt[0][1].summary().lower():
+        if self.protocol.lower() in self.pkt[0][1].summary().lower():
             packet_no = packet_no + 1
             #Writing the data for each packet to the external file
-            print >>sniffer_log, "Packet " + str(packet_no) + ": " + "SMAC: " + pkt[0].src + " DMAC: " + pkt[0].dst
+            print >>self.sniffer_log, "Packet " + str(packet_no) + ": " + "SMAC: " + self.pkt[0].src + " DMAC: " + self.pkt[0].dst
 
     def get_interface_details(self):
     	self.net_int = raw_input("[+] Enter the interface you wish to sniff: (Eg. eth0): -> ")
@@ -30,6 +34,10 @@ class Sniff():
     	print "[INFO] Setting interface %s in promisc mode.." %self.net_int
 
     def get_sniff_details(self):
+    	#Creating an external file for packet logging
+	self.file_name = raw_input("* Please give a name to the log file: ")
+        self.sniffer_log = open(self.file_name, "w")
+
     	self.pkt_to_sniff = raw_input("[+] Enter the number of packets to sniff (0 is infinity): -> ")
     	if int(self.pkt_to_sniff) != 0:
     		print "[INFO] The program will capture %s number of packets." %self.pkt_to_sniff
@@ -47,14 +55,14 @@ class Sniff():
 
     def sniff(self):
 	print "[+] Sniffing starting for %s seconds.... " %self.time_to_sniff
-	self.pkt = sniff(iface=self.net_int, count=int(self.pkt_to_sniff), timeout=int(self.time_to_sniff)).show() #prn=self.packet_log)
+	self.pkt = sniff(iface=self.net_int, count=int(self.pkt_to_sniff), timeout=int(self.time_to_sniff), prn=self.packet_log).show()
         
 #        self.pkt.show()
         #Printing the closing message
         print "[INFO] The timeout of %s seconds has passed." %self.time_to_sniff
-#        print "[INFO] Please check the %s file to see the captured packets.\n" %self.file_name
+        print "[INFO] Please check the %s file to see the captured packets.\n" %self.file_name
  
-#        self.sniffer_log.close()
+        self.sniffer_log.close()
 
 
 # Set logging parameters/ thresholds
