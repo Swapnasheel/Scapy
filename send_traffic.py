@@ -40,7 +40,6 @@ def create_parser():
 
     return parser
 
-
 def Main():
 
     args = create_parser().parse_args()
@@ -60,5 +59,5 @@ def Main():
     for c in range(0, args.count):  
         sendp(pkt, iface=iface, verbose=False) 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     Main()
