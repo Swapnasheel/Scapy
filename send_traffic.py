@@ -36,7 +36,7 @@ def create_parser():
     parser.add_argument('-dip','--dest_ip', metavar='', help="Needs a destination IP as an argument", required=True)
     parser.add_argument('-p', '--msg', metavar='', help="Payload!", required=True)
     parser.add_argument('-vlan', '--vlan', metavar='', help="If you need to add a VLAN tag", type=int)
-    parser.add_argument('-c', '--count', metavar='', help="Number of packets to send", type=int)
+    parser.add_argument('-c', '--count', metavar='', help="Number of packets to send", type=int, default=3)
 
     return parser
 
